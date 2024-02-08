@@ -91,17 +91,11 @@ def executeCommand(String command){
 
     Process process = executer.execute()
 
-    def (output, error) = new StringWriter().with {
+    new StringWriter().with {
          o -> new StringWriter().with {
             e -> process.waitForProcessOutput(o, e)
             [ o, e ]*.toString()
          }
-    }
-
-    if(!error.replace('\n','').isEmpty()){
-        println("Error:")
-        println("   output=${output}")
-        println("   error=${error}")
     }
 }
 
